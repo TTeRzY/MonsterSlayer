@@ -67,7 +67,7 @@
         methods: {
             attack: function () {
                 var startMonsterHealth = this.monsterHealth
-                var startPlayerHealth = this.monsterHealth
+                var startPlayerHealth = this.playerHealth
                 var randMonsterHealth = this.monsterHealth -= (Math.floor(Math.random() * 20) + 1)
                 var randPlayerHealth = this.playerHealth -= (Math.floor(Math.random() * 20) + 1)
                 this.attackHistory.push("MONSTERS HIT PLAYERS FOR " + (this.monsterHit = (startPlayerHealth - randPlayerHealth)))
