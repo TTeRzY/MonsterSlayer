@@ -1,2 +1,2 @@
-# MonsterSlayer
-Vue.js
+# Vue.js MonsterSlayer Web App
+
