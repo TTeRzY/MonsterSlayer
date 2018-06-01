@@ -8,9 +8,10 @@
 </head>
 <body>
 <div id="app">
+    <h1 class="text-center">Monster Slayer</h1>
     <section class="row">
         <div class="small-6 columns">
-            <h1 class="text-center">HERO</h1>
+            <img src="img/hero.png" alt="Hero">
             <div class="healthbar">
                 <div v-bind:style="{ width: playerHealth + '%' }" class="healthbar text-center"
                      style="background-color: green; margin: 0; color: white;">
@@ -19,7 +20,7 @@
             </div>
         </div>
         <div class="small-6 columns">
-            <h1 class="text-center">MONSTER</h1>
+            <img src="img/dragon.svg" alt="Dragon">
             <div class="healthbar">
                 <div v-bind:style="{ width: monsterHealth + '%' }" class="healthbar text-center"
                      style="background-color: green; margin: 0; color: white;">
@@ -36,12 +37,12 @@
     <section class="row controls" v-if="show">
         <div class="small-12 columns">
             <button id="attack" @click="attack">ATTACK</button>
-            <button id="special-attack">SPECIAL ATTACK</button>
-            <button id="heal">HEAL</button>
+            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
             <button id="give-up" @click="giveUp">GIVE UP</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-show="show, attackHistory.length > 0">
         <div class="small-12 columns">
             <ul>
                 <li v-for="hist in attackHistory" class="history">
@@ -52,7 +53,7 @@
     </section>
 </div>
 <script>
-    var app = new Vue({
+    let app = new Vue({
         el: '#app',
         data() {
             return {
@@ -61,19 +62,19 @@
                 playerHealth: 100,
                 monsterHit: 0,
                 playerHit: 0,
-                attackHistory: []
+                attackHistory: [],
+                monsterDamage: 0,
+                playerDamage: 0
             }
         },
         methods: {
             attack: function () {
-                var startMonsterHealth = this.monsterHealth
-                var startPlayerHealth = this.playerHealth
-                var randMonsterHealth = this.monsterHealth -= (Math.floor(Math.random() * 20) + 1)
-                var randPlayerHealth = this.playerHealth -= (Math.floor(Math.random() * 20) + 1)
-                this.attackHistory.push("MONSTERS HIT PLAYERS FOR " + (this.monsterHit = (startPlayerHealth - randPlayerHealth)))
-                this.attackHistory.push("PLAYER HIT MONSTER FOR " + (this.playerHit = (startMonsterHealth - randMonsterHealth)))
-                console.log(this.attackHistory)
-                console.log(this.playerHealth)
+                let startMonsterHealth = this.monsterHealth
+                let startPlayerHealth = this.playerHealth
+                this.monsterDamage = this.monsterHealth -= (Math.floor(Math.random() * 20) + 1)
+                this.playerDamage = this.playerHealth -= (Math.floor(Math.random() * 20) + 1)
+                this.attackHistory.push("MONSTERS HIT PLAYERS FOR " + (this.monsterHit = (startPlayerHealth - this.playerDamage)))
+                this.attackHistory.push("PLAYER HIT MONSTER FOR " + (this.playerHit = (startMonsterHealth - this.monsterDamage)))
                 if (this.monsterHealth <= 0) {
                     this.monsterHealth = 0
                     alert("Player Win")
@@ -83,14 +84,43 @@
                     alert("Monster Win")
                 }
             },
+            heal: function () {
+                let randHealGenerator = Math.floor(Math.random() * 10) + 1
+                if (randHealGenerator + this.playerHealth <= 100) {
+                    this.playerHealth += randHealGenerator
+                }
+                else{
+                    alert("Player can't heal up anymore")
+                }
+            },
             giveUp: function () {
-                this.playerHealth = 0;
-                alert('Monster Win')
+                if (confirm('Monster Win')){
+                    this.show = false
+                    this.attackHistory = []
+                    this.monsterHealth = 100
+                    this.playerHealth= 100
+                }
             },
             startGame: function () {
                 this.attackHistory = []
                 this.monsterHealth = 100
                 this.playerHealth = 100
+            },
+            specialAttack: function () {
+                let startMonsterHealth = this.monsterHealth
+                let startPlayerHealth = this.playerHealth
+                this.monsterDamage = this.monsterHealth -= (Math.floor(Math.random() * 16)) + 1
+                this.playerDamage = this.playerHealth -= (Math.floor(Math.random() * 16)) + 1
+                this.attackHistory.push("MONSTERS HIT PLAYERS WITH SPECIAL ATTACK FOR " + (this.monsterHit = (startPlayerHealth - this.playerDamage)))
+                this.attackHistory.push("PLAYER HIT MONSTER WITH SPECIAL ATTACK FOR " + (this.playerHit = (startMonsterHealth - this.monsterDamage)))
+                if (this.monsterHealth <= 0) {
+                    this.monsterHealth = 0
+                    alert("Player Win")
+                }
+                else if (this.playerHealth <= 0) {
+                    this.playerHealth = 0
+                    alert("Monster Win")
+                }
             }
         }
     })

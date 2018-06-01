@@ -1,3 +1,15 @@
+
+body{
+    background-image: url("../img/Dungeon_battle_earth.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.columns img{
+    height: 90px;
+    display: block;
+    margin: 15px auto;
+}
 .text-center {
     text-align: center;
 }
@@ -96,9 +108,11 @@ button {
 .history:nth-child(even){
     color: lightblue;
     background-color: darkblue;
+    opacity: 0.7;
 }
 
 .history:nth-child(odd){
     color: #ffc0c1;
     background-color: red;
+    opacity: 0.7;
 }
