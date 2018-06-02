@@ -1,8 +1,13 @@
 
 body{
-    background-image: url("../img/Dungeon_battle_earth.jpg");
+    background-image: url("../img/background-lights.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.name-app{
+    color: #fff;
+    font-weight: 700;
 }
 
 .columns img{
@@ -15,8 +20,8 @@ body{
 }
 
 .healthbar {
-    width: 80%;
-    height: 40px;
+    width: 60%;
+    height: 25px;
     background-color: #eee;
     margin: auto;
     transition: width 500ms;
