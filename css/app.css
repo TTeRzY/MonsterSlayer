@@ -19,6 +19,11 @@ body{
     text-align: center;
 }
 
+.app-title{
+    color: #fff;
+    font-weight: 700;
+}
+
 .healthbar {
     width: 60%;
     height: 25px;
