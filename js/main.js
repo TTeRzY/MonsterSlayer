@@ -16,8 +16,8 @@ let app = new Vue({
         attack: function () {
             let startMonsterHealth = this.monsterHealth
             let startPlayerHealth = this.playerHealth
-            this.monsterDamage = this.monsterHealth -= (Math.floor(Math.random() * 20) + 1)
-            this.playerDamage = this.playerHealth -= (Math.floor(Math.random() * 20) + 1)
+            this.monsterDamage = this.playerHealth -= (Math.floor(Math.random() * 20) + 1)
+            this.playerDamage = this.monsterHealth -= (Math.floor(Math.random() * 20) + 1)
             this.attackHistory.push("MONSTERS HIT PLAYERS FOR " + (this.monsterHit = (startPlayerHealth - this.playerDamage)))
             this.attackHistory.push("PLAYER HIT MONSTER FOR " + (this.playerHit = (startMonsterHealth - this.monsterDamage)))
             if (this.monsterHealth <= 0) {

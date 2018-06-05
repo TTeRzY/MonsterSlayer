@@ -13,8 +13,7 @@
         <div class="small-6 columns">
             <img src="img/hero.png" alt="Hero">
             <div class="healthbar">
-                <div v-bind:style="{ width: playerHealth + '%' }" class="healthbar text-center"
-                     style="background-color: green; margin: 0; color: white;">
+                <div v-bind:style="{ width: playerHealth + '%' }" class="healthbar text-center inner-healthbar">
                     {{ playerHealth }}
                 </div>
             </div>
@@ -22,8 +21,7 @@
         <div class="small-6 columns">
             <img src="img/dragon.svg" alt="Dragon">
             <div class="healthbar">
-                <div v-bind:style="{ width: monsterHealth + '%' }" class="healthbar text-center"
-                     style="background-color: green; margin: 0; color: white;">
+                <div v-bind:style="{ width: monsterHealth + '%' }" class="healthbar text-center inner-healthbar">
                     {{ monsterHealth }}
                 </div>
             </div>
