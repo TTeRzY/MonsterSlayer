@@ -1,8 +1,8 @@
-let app = new Vue({
+let app = new Vue({ // Create New Vue Instance
     el: '#app',
     data() {
         return {
-            show: false,
+            gameIsRunning: false,
             monsterHealth: 100,
             playerHealth: 100,
             monsterHit: 0,
@@ -40,7 +40,7 @@ let app = new Vue({
         },
         giveUp: function () {
             if (confirm('Monster Win')){
-                this.show = false
+                this.gameIsRunning = false
                 this.attackHistory = []
                 this.monsterHealth = 100
                 this.playerHealth= 100

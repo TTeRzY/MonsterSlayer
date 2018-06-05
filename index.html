@@ -13,7 +13,7 @@
         <div class="small-6 columns">
             <img src="img/hero.png" alt="Hero">
             <div class="healthbar">
-                <div v-bind:style="{ width: playerHealth + '%' }" class="healthbar text-center inner-healthbar">
+                <div :style="{ width: playerHealth + '%' }" class="healthbar text-center inner-healthbar">
                     {{ playerHealth }}
                 </div>
             </div>
@@ -21,18 +21,18 @@
         <div class="small-6 columns">
             <img src="img/dragon.svg" alt="Dragon">
             <div class="healthbar">
-                <div v-bind:style="{ width: monsterHealth + '%' }" class="healthbar text-center inner-healthbar">
+                <div :style="{ width: monsterHealth + '%' }" class="healthbar text-center inner-healthbar">
                     {{ monsterHealth }}
                 </div>
             </div>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="!gameIsRunning">
         <div class="small-12 columns">
-            <button id="start-game" @click="show = !show, startGame()">START NEW GAME</button>
+            <button id="start-game" @click="gameIsRunning = !gameIsRunning, startGame()">START NEW GAME</button>
         </div>
     </section>
-    <section class="row controls" v-if="show">
+    <section class="row controls" v-else>
         <div class="small-12 columns">
             <button id="attack" @click="attack">ATTACK</button>
             <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
@@ -40,7 +40,7 @@
             <button id="give-up" @click="giveUp">GIVE UP</button>
         </div>
     </section>
-    <section class="row log" v-show="show, attackHistory.length > 0">
+    <section class="row log" v-show="gameIsRunning, attackHistory.length > 0">
         <div class="small-12 columns">
             <ul>
                 <li v-for="hist in attackHistory" class="history">
