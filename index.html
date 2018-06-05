@@ -43,8 +43,8 @@
     <section class="row log" v-show="gameIsRunning, attackHistory.length > 0">
         <div class="small-12 columns">
             <ul>
-                <li v-for="hist in attackHistory" class="history">
-                    {{ hist }}
+                <li v-for="turns in attackHistory" class="history">
+                    {{ turns.message }}
                 </li>
             </ul>
         </div>

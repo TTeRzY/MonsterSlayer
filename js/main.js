@@ -5,24 +5,22 @@ let app = new Vue({ // Create New Vue Instance
       gameIsRunning: false,
       monsterHealth: 100,
       playerHealth: 100,
-      monsterHit: 0,
-      playerHit: 0,
       attackHistory: [],
-      monsterDamage: 0,
-      playerDamage: 0
     }
   },
   methods: {
     attack: function () {
-      this.monsterHealth -= this.getDamage(3, 15);
+      let damage = this.getDamage(3, 15);
+      this.monsterHealth -= damage;
+      this.attackHistory.unshift({
+        isPlayer: true,
+        message: 'Player hits Monster for ' + damage
+      });
       if (this.checkForWinner()) {
         return;
       }
 
       this.monsterAttack();
-
-      this.attackHistory.push("MONSTERS HIT PLAYERS FOR " + (this.monsterHit = (startPlayerHealth - this.playerDamage)));
-      this.attackHistory.push("PLAYER HIT MONSTER FOR " + (this.playerHit = (startMonsterHealth - this.monsterDamage)));
     },
     heal: function () {
       if (this.playerHealth <= 90) {
@@ -30,14 +28,15 @@ let app = new Vue({ // Create New Vue Instance
       }else {
         this.playerHealth = 100;
       }
+      this.attackHistory.unshift({
+        isPlayer: true,
+        message: 'Player heals for 10 '
+      });
       this.monsterAttack();
     },
     giveUp: function () {
       if (confirm('Monster Win')) {
         this.gameIsRunning = false;
-        this.attackHistory = [];
-        this.monsterHealth = 100;
-        this.playerHealth = 100;
       }
     },
     startGame: function () {
@@ -47,14 +46,17 @@ let app = new Vue({ // Create New Vue Instance
       this.gameIsRunning = true;
     },
     specialAttack: function () {
-      this.monsterHealth -= this.getDamage(10, 20);
+      let damage = this.getDamage(10, 20);
+      this.monsterHealth -= damage;
+      this.attackHistory.unshift({
+        isPlayer: true,
+        message: 'Player hits Monster with special attack for ' + damage
+      });
       if (this.checkForWinner()) {
         return;
       }
 
       this.monsterAttack();
-      this.attackHistory.push("MONSTERS HIT PLAYERS WITH SPECIAL ATTACK FOR " + (this.monsterHit = (startPlayerHealth - this.playerDamage)));
-      this.attackHistory.push("PLAYER HIT MONSTER WITH SPECIAL ATTACK FOR " + (this.playerHit = (startMonsterHealth - this.monsterDamage)));
     },
     getDamage: function (min, max) {
       return Math.max(Math.floor(Math.random() * max) + 1, min);
@@ -78,7 +80,12 @@ let app = new Vue({ // Create New Vue Instance
       return false;
     },
     monsterAttack: function () {
-      this.playerHealth -= this.getDamage(5, 17);
+      let damage =  this.getDamage(5, 17);
+      this.playerHealth -= damage;
+      this.attackHistory.unshift({
+        isPlayer: false,
+        message: 'Monster hits player for ' + damage
+      });
       this.checkForWinner();
     }
   }
